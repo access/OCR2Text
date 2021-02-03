@@ -16,14 +16,12 @@ using RequestRecognitionToolLib.Main.classes;
 using RequestRecognitionToolLib.Main.classes.utils;
 using System.Collections;
 using ExcelDataReader;
+using OCR2Text.Main.classes.documents;
 
 namespace RequestRecognitionToolLib.Main
 {
-    public class DocumentXLSX : IDocument, IEnumerable, IEnumerator
+    public class DocumentXLSX : Document
     {
-        public int CountOfPages
-        { get; } = 0;
-        public List<Page> DocumentPages { get; } = new List<Page>();
 
         public DocumentXLSX(IDataFile dataFile)
         {
@@ -78,10 +76,5 @@ namespace RequestRecognitionToolLib.Main
             }
             catch (Exception) { }
         }
-        public object Current => DocumentPages.GetEnumerator().Current;
-        public string DocumentJSON => ConverterDocumentToJSON.GetDocumentJSON(DocumentPages);
-        public bool MoveNext() => DocumentPages.GetEnumerator().MoveNext();
-        public void Reset() => GetEnumerator().Reset();
-        public IEnumerator GetEnumerator() => DocumentPages.GetEnumerator();
     }
 }

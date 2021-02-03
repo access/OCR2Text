@@ -12,13 +12,12 @@ using System.Collections;
 using RequestRecognitionToolLib.Main.Interfaces;
 using RequestRecognitionToolLib.Main.classes;
 using RequestRecognitionToolLib.Main.classes.utils;
+using OCR2Text.Main.classes.documents;
 
 namespace RequestRecognitionToolLib.Main
 {
-    public class DocumentXLS : IDocument, IEnumerable, IEnumerator
+    public class DocumentXLS : Document
     {
-        public int CountOfPages { get; }
-        public List<Page> DocumentPages { get; } = new List<Page>();
         public DocumentXLS(IDataFile dataFile)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -58,10 +57,5 @@ namespace RequestRecognitionToolLib.Main
             }
             catch (Exception) { }
         }
-        public object Current => DocumentPages.GetEnumerator().Current;
-        public string DocumentJSON => ConverterDocumentToJSON.GetDocumentJSON(DocumentPages);
-        public bool MoveNext() => DocumentPages.GetEnumerator().MoveNext();
-        public void Reset() => GetEnumerator().Reset();
-        public IEnumerator GetEnumerator() => DocumentPages.GetEnumerator();
     }
 }

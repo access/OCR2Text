@@ -9,13 +9,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using OCR2Text.Main.classes.documents;
 
 namespace RequestRecognitionToolLib.Main.classes
 {
-    public class DocumentEmpty : IDocument, IEnumerable, IEnumerator
+    public class DocumentEmpty : Document
     {
-        public int CountOfPages { get; } = 0;
-        public List<Page> DocumentPages { get; } = new List<Page>();
         public DocumentEmpty(IDataFile dataFile)
         {
             string[] row = new string[2];
@@ -26,10 +25,5 @@ namespace RequestRecognitionToolLib.Main.classes
             Page page = new Page(pageRows);
             DocumentPages.Add(page);
         }
-        public object Current => DocumentPages.GetEnumerator().Current;
-        public string DocumentJSON => ConverterDocumentToJSON.GetDocumentJSON(DocumentPages);
-        public bool MoveNext() => DocumentPages.GetEnumerator().MoveNext();
-        public void Reset() => GetEnumerator().Reset();
-        public IEnumerator GetEnumerator() => DocumentPages.GetEnumerator();
     }
 }

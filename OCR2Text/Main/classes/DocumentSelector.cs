@@ -3,6 +3,7 @@
 ///  Author:    Jevgeni Kostenko
 ///  Date:      24.09.2020
 /// ==========================================
+using OCR2Text.Main.classes.documents;
 using RequestRecognitionToolLib.Main.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace RequestRecognitionToolLib.Main.classes
 {
     public class DocumentSelector
     {
-        public IDocument GetDocumentByFileType(IDataFile dataFile)
+        public Document GetDocumentByFileType(IDataFile dataFile)
         {
             if (!dataFile.HasLoadError)
             {

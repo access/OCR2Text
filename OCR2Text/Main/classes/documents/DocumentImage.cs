@@ -3,6 +3,7 @@
 ///  Author:    Jevgeni Kostenko
 ///  Date:      01.10.2020
 /// ==========================================
+using OCR2Text.Main.classes.documents;
 using RequestRecognitionToolLib.Main.classes.utils;
 using RequestRecognitionToolLib.Main.Interfaces;
 using System.Collections;
@@ -10,7 +11,7 @@ using System.Collections.Generic;
 
 namespace RequestRecognitionToolLib.Main.classes
 {
-    internal class DocumentImage : IDocument, IEnumerable, IEnumerator
+    internal class DocumentImage : Document
     {
         public DocumentImage(IDataFile dataFile)
         {
@@ -18,13 +19,5 @@ namespace RequestRecognitionToolLib.Main.classes
             Page page = new Page(imageReader.GetLines());
             DocumentPages.Add(page);
         }
-
-        public object Current => DocumentPages.GetEnumerator().Current;
-        public string DocumentJSON => ConverterDocumentToJSON.GetDocumentJSON(DocumentPages);
-        public List<Page> DocumentPages { get; } = new List<Page>();
-        public int CountOfPages => DocumentPages.Count;
-        public bool MoveNext() => DocumentPages.GetEnumerator().MoveNext();
-        public void Reset() => GetEnumerator().Reset();
-        public IEnumerator GetEnumerator() => DocumentPages.GetEnumerator();
     }
 }

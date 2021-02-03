@@ -14,17 +14,16 @@ using ImageMagick;
 using Docnet;
 using System.Threading.Tasks;
 using System.Collections;
+using OCR2Text.Main.classes.documents;
 
 namespace RequestRecognitionToolLib.Main.classes
 {
-    public class DocumentPDF : IDocument, IEnumerable, IEnumerator
+    public class DocumentPDF : Document
     {
-        public List<Page> DocumentPages { get; } = new List<Page>();
-        public int CountOfPages => DocumentPages.Count;
         public DocumentPDF(IDataFile dataFile)
         {
             PdfToImageConverter imagesFromPDF = new PdfToImageConverter(dataFile);
-            
+
             foreach (byte[] imagePage in imagesFromPDF)
             {
                 ImageReader imgReader = new ImageReader(imagePage);
@@ -32,10 +31,5 @@ namespace RequestRecognitionToolLib.Main.classes
                 DocumentPages.Add(page);
             }
         }
-        public object Current => DocumentPages.GetEnumerator().Current;
-        public string DocumentJSON => ConverterDocumentToJSON.GetDocumentJSON(DocumentPages);
-        public bool MoveNext() => DocumentPages.GetEnumerator().MoveNext();
-        public void Reset() => GetEnumerator().Reset();
-        public IEnumerator GetEnumerator() => DocumentPages.GetEnumerator();
     }
 }
